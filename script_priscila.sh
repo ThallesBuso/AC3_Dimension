@@ -94,8 +94,8 @@ if [[ ! "$(sudo docker ps -aqf "name=ContainerDimensionBD")" ]]
             then
             echo -e "${YELLOW}[Dimension Bot]:${ENDC} Iniciando a criação do ContainerDimensionBD..."
             sleep 2
-            git clone https://github.com/P-Shoyo/DimensionSO.git
-            cd DimensionSO
+            git clone https://github.com/P-Shoyo/Dimension.git
+            cd Dimension
             cd mysql
             sudo docker build -t mysql . 
             cd ..
@@ -111,10 +111,12 @@ if [[ ! "$(sudo docker ps -aqf "name=ContainerDimensionBD")" ]]
     else
         echo -e "${YELLOW}[Dimension Bot]:${ENDC} Container MySQL já existe!"
         CONTID=$(sudo docker ps -aqf "name=ContainerDimensionBD")
+        #sudo docker stop ${CONTID}
         sudo docker start ${CONTID}        
 fi
 
 sleep 2
+#clear
 
 #Instalação JAVA IMG -VERSION 11
 echo -e "${YELLOW}[Dimension Bot]:${ENDC} Instalação da imagem ${RED}Java${ENDC}"
@@ -147,7 +149,7 @@ if [[ ! "$(sudo docker ps -aqf "name=java-jar")" ]]
         echo -e "${YELLOW}[Dimension Bot]:${ENDC} O dimensionjava não existe"
         echo -e "${YELLOW}[Dimension Bot]:${ENDC} Inicializando a criação..."
         sleep 1
-        cd DimensionSO/ApiMysql/target
+        cd Dimension/ApiMysql/target
         chmod 777 DimensionJar.jar
         sudo docker build -t dimensionjava .
         sudo docker run -d --name='java-jar' -t dimensionjava
@@ -159,7 +161,7 @@ if [[ ! "$(sudo docker ps -aqf "name=java-jar")" ]]
         sudo docker stop ${CONTID}
         sudo docker start ${CONTID}
         echo -e "${YELLOW}[Dimension Bot]:${ENDC} Container já existe, iniciando o Container..."
-        cd DimensionSO/ApiMysql/target
+        cd Dimension/ApiMysql/target
         chmod 777 DimensionJar.jar
         sudo docker build -t dimensionjava .
         sudo docker cp DimensionJar.jar java-jar:/

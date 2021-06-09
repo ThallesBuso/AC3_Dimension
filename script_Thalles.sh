@@ -1,24 +1,14 @@
-#!/bin/bash
+
 clear
 
-BLUE="\e[34m"
-BLUENUM="34"
-BLUEBOLD="\e[1;${BLUENUM}m"
-#BOLD p/DIMENSION
-YELLOW="\e[33m"
-#YELLOW p/ BOT ASSISTENTE
-RED="\e[31m"
-#RED = Docker, Java, IMG , Container installed
-ENDC="\e[0m"
 
-echo -e "${BLUE}'########::'####:'##::::'##:'########:'##::: ##::'######::'####::'#######::'##::: ##:${ENDC}"
-echo -e "${BLUE} ##.... ##:. ##:: ###::'###: ##.....:: ###:: ##:'##... ##:. ##::'##.... ##: ###:: ##:${ENDC}"
-echo -e "${BLUE} ##:::: ##:: ##:: ####'####: ##::::::: ####: ##: ##:::..::: ##:: ##:::: ##: ####: ##:${ENDC}"
-echo -e "${BLUE} ##:::: ##:: ##:: ## ### ##: ######::: ## ## ##:. ######::: ##:: ##:::: ##: ## ## ##:${ENDC}"
-echo -e "${BLUE} ##:::: ##:: ##:: ##. #: ##: ##...:::: ##. ####::..... ##:: ##:: ##:::: ##: ##. ####:${ENDC}"
-echo -e "${BLUE} ##:::: ##:: ##:: ##:.:: ##: ##::::::: ##:. ###:'##::: ##:: ##:: ##:::: ##: ##:. ###:${ENDC}"
-echo -e "${BLUE} ########::'####: ##:::: ##: ########: ##::. ##:. ######::'####:. #######:: ##::. ##:${ENDC}"
-echo -e "${BLUE}........:::....::..:::::..::........::..::::..:::......:::....:::.......:::..::::..::${ENDC}"
+
+echo -e " /__  ___/                                         //   ) )                   "        
+echo -e "   / /  / __      ___     // //  ___      ___     //___/ /            ___     "___    
+echo -e "  / /  //   ) ) //   ) ) // // //___) ) ((   ) ) / __  (   //   / / ((   ) ) //   ) ) "
+echo -e " / /  //   / / //   / / // // //         \ \    //    ) ) //   / /   \ \    //   / /  "
+echo -e "/ /  //   / / ((___( ( // // ((____   //   ) ) //____/ / ((___( ( //   ) ) ((___/ /  "
+
 
 echo -e "${YELLOW}[Dimension Bot]:${ENDC} Seja bem vindo à aplicação ${BLUEBOLD}Dimension${ENDC} ʕ•́ᴥ•̀ʔ"
 echo -e "${YELLOW}[Dimension Bot]:${ENDC} Vamos inicializar a nossa configuração de ambiente..."
@@ -94,7 +84,7 @@ if [[ ! "$(sudo docker ps -aqf "name=ContainerDimensionBD")" ]]
             then
             echo -e "${YELLOW}[Dimension Bot]:${ENDC} Iniciando a criação do ContainerDimensionBD..."
             sleep 2
-            git clone https://github.com/P-Shoyo/Dimension.git
+            git clone https://github.com/ThallesBuso/AC3_Dimension.git
             cd Dimension
             cd mysql
             sudo docker build -t mysql . 

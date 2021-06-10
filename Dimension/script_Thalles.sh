@@ -10,58 +10,58 @@ echo -e " / /  //   / / //   / / // // //         \ \    //    ) ) //   / /   \ 
 echo -e "/ /  //   / / ((___( ( // // ((____   //   ) ) //____/ / ((___( ( //   ) ) ((___/ /  "
 
 
-echo -e "${YELLOW}[Dimension Bot]:${ENDC} Seja bem vindo à aplicação ${BLUEBOLD}Dimension${ENDC} ʕ•́ᴥ•̀ʔ"
-echo -e "${YELLOW}[Dimension Bot]:${ENDC} Vamos inicializar a nossa configuração de ambiente..."
+echo -e "[Dimension Bot]: Seja bem vindo à aplicação Dimension ʕ•́ᴥ•̀ʔ"
+echo -e "[Dimension Bot]: Vamos inicializar a nossa configuração de ambiente..."
 
-echo -e "${YELLOW}[Dimension Bot]:${ENDC} Verificando se o ${RED}Docker${ENDC} está instalado..."
+echo -e "[Dimension Bot]: Verificando se o Docker está instalado..."
 docker -v
 if [ $? -eq 0 ]
     then
-        echo -e "${YELLOW}[Dimension Bot]:${ENDC} O ${RED}Docker${ENDC} já foi instalado. "
+        echo -e "[Dimension Bot]: O Docker já foi instalado. "
     else
-        echo -e "${YELLOW}[Dimension Bot]:${ENDC} Não conseguimos encontrar o ${RED}Docker${ENDC} T.T "
-        echo -e "${YELLOW}[Dimension Bot]:${ENDC} Gostaria de iniciar a instalação? :3 S/n "
+        echo -e "[Dimension Bot]: Não conseguimos encontrar o Docker T.T "
+        echo -e "[Dimension Bot]: Gostaria de iniciar a instalação? :3 S/n "
         read inst
         if [ \"$inst\" == \"s\" ]
             then
-                echo -e "${YELLOW}[Dimension Bot]:${ENDC} Iniciando a instalação do ${RED}Docker${ENDC}..."
+                echo -e "[Dimension Bot]: Iniciando a instalação do Docker..."
                 sleep 2
                 sudo apt update && sudo apt install docker.io -y
                 clear
-                echo -e "${YELLOW}[Dimension Bot]:${ENDC} Instalação completa do ${RED}Docker${ENDC}! ${RED}♥${ENDC}"
+                echo -e "[Dimension Bot]: Instalação completa do Docker! ♥"
                 sleep 2
             else 
-                echo -e "${YELLOW}[Dimension Bot]:${ENDC} Você escolheu não instalar... ó_ò"
+                echo -e "[Dimension Bot]: Você escolheu não instalar... ó_ò"
                 exit
         fi
 fi   
 
-echo -e "${YELLOW}[Dimension Bot]:${ENDC} Inicalizando o ${RED}Docker${ENDC}..."
+echo -e "[Dimension Bot]: Inicalizando o Docker..."
 sleep 2
 sudo systemctl start docker
 sudo systemctl enable docker
 
-echo -e "${YELLOW}[Dimension Bot]:${ENDC} ${RED}Docker${ENDC} Iniciado!"
+echo -e "[Dimension Bot]: Docker Iniciado!"
 
 #clear
 
 #Instalação da img MySQL
-echo -e "${YELLOW}[Dimension Bot]:${ENDC} Instalação da imagem ${RED}MySQL${ENDC}"
-echo -e "${YELLOW}[Dimension Bot]:${ENDC} Verificando se existe a imagem ${RED}MySQL${ENDC} instalado... \(^o^)/"
+echo -e "[Dimension Bot]: Instalação da imagem MySQL"
+echo -e "[Dimension Bot]: Verificando se existe a imagem MySQL instalado... \(^o^)/"
 sleep 1
 
 if [[ ! "$(sudo docker image inspect mysql:5.7)" ]]
     then
-        echo -e "${YELLOW}[Dimension Bot]:${ENDC} Imagem do MySQL não foi instalado (>_<)"
-        echo -e "${YELLOW}[Dimension Bot]:${ENDC} Gostaria de fazer a instalação ${RED}S/n${ENDC}"
+        echo -e "[Dimension Bot]: Imagem do MySQL não foi instalado (>_<)"
+        echo -e "[Dimension Bot]: Gostaria de fazer a instalação S/n"
         read inst
         if [ \"$inst\" == \"s\" ]
             then
-            echo -e "${YELLOW}[Dimension Bot]:${ENDC}Iniciando a instalação do MySQL..."
+            echo -e "[Dimension Bot]:Iniciando a instalação do MySQL..."
             sleep 2
             sudo docker pull mysql:5.7
 
-            echo -e "${YELLOW}[Dimension Bot]:${ENDC}Instalação completa do MySQL"
+            echo -e "[Dimension Bot]:Instalação completa do MySQL"
             sleep 2
         fi
     else
@@ -72,19 +72,20 @@ fi
 #clear
 
 #Configurando o Container MySQL
-echo -e "${YELLOW}[Dimension Bot]:${ENDC} Configurando o container MySQL"
-echo -e "${YELLOW}[Dimension Bot]:${ENDC} Conferindo se existe o container para MySQL"
+echo -e "[Dimension Bot]: Configurando o container MySQL"
+echo -e "[Dimension Bot]: Conferindo se existe o container para MySQL"
 
 if [[ ! "$(sudo docker ps -aqf "name=ContainerDimensionBD")" ]]
     then
-        echo -e "${YELLOW}[Dimension Bot]:${ENDC} Não existe nenhum container... T-T"
-        echo -e "${YELLOW}[Dimension Bot]:${ENDC} Gostaria de criar o Container? *3*??  ${RED}S/n${ENDC}"
+        echo -e "[Dimension Bot]: Não existe nenhum container... T-T"
+        echo -e "[Dimension Bot]: Gostaria de criar o Container? *3*??  S/n"
         read inst
         if [ \"$inst\" == \"s\" ]
             then
-            echo -e "${YELLOW}[Dimension Bot]:${ENDC} Iniciando a criação do ContainerDimensionBD..."
+            echo -e "[Dimension Bot]: Iniciando a criação do ContainerDimensionBD..."
             sleep 2
             git clone https://github.com/ThallesBuso/AC3_Dimension.git
+            cd AC3_Dimension
             cd Dimension
             cd mysql
             sudo docker build -t mysql . 
@@ -92,14 +93,14 @@ if [[ ! "$(sudo docker ps -aqf "name=ContainerDimensionBD")" ]]
             cd ..            
             #permissão para que funcione o docker.sock - senão nega e da erro
             sudo chmod 666 /var/run/docker.sock
-            docker run -d -p 3306:3306 --name ContainerDimensionBD -e "MYSQL_DATABASE=dimensionBD" -e "MYSQL_ROOT_PASSWORD=urubu100" mysql
+            sudo docker run -d -p 3306:3306 --name ContainerDimensionBD -e "MYSQL_DATABASE=dimensionBD" -e "MYSQL_ROOT_PASSWORD=urubu100" mysql
             #sudo docker run -d -p 3306:3306 --name ContainerDimensionBD -e "MYSQL_DATABASE=dimensionBD" -e "MYSQL_ROOT_PASSWORD=urubu100" mysql:5.7
             
-            echo -e "${YELLOW}[Dimension Bot]:${ENDC} Configuração completa do MySQL \o/ "
+            echo -e "[Dimension Bot]: Configuração completa do MySQL \o/ "
             sleep 2
         fi
     else
-        echo -e "${YELLOW}[Dimension Bot]:${ENDC} Container MySQL já existe!"
+        echo -e "[Dimension Bot]: Container MySQL já existe!"
         CONTID=$(sudo docker ps -aqf "name=ContainerDimensionBD")
         #sudo docker stop ${CONTID}
         sudo docker start ${CONTID}        
@@ -109,23 +110,23 @@ sleep 2
 #clear
 
 #Instalação JAVA IMG -VERSION 11
-echo -e "${YELLOW}[Dimension Bot]:${ENDC} Instalação da imagem ${RED}Java${ENDC}"
-echo -e "${YELLOW}[Dimension Bot]:${ENDC} Verificando se existe a imagem ${RED}Java 11${ENDC} instalado..."
+echo -e "[Dimension Bot]: Instalação da imagem Java"
+echo -e "[Dimension Bot]: Verificando se existe a imagem Java 11 instalado..."
 sleep 1
 
 if [[ ! "$(sudo docker image inspect openjdk:11)" ]]
     then
-        echo -e "${YELLOW}[Dimension Bot]:${ENDC} Não existe nenhuma imagem do Java 11..."
-        echo -e "${YELLOW}[Dimension Bot]:${ENDC} Gostaria de instalar agora? S/n"
+        echo -e "[Dimension Bot]: Não existe nenhuma imagem do Java 11..."
+        echo -e "[Dimension Bot]: Gostaria de instalar agora? S/n"
         read inst
 
         if [ \"$inst\" == \"s\" ]
             then
-                echo -e "${YELLOW}[Dimension Bot]:${ENDC} Instalação da imagem do ${RED}Java 11${ENDC} será iniciado"
+                echo -e "[Dimension Bot]: Instalação da imagem do Java 11 será iniciado"
                 sudo docker pull openjdk:11
-                echo -e "${YELLOW}[Dimension Bot]:${ENDC} Imagem ${RED}Java 11${ENDC} instalado!"
+                echo -e "[Dimension Bot]: Imagem Java 11 instalado!"
             else
-                echo -e "${YELLOW}[Dimension Bot]:${ENDC} Okay... Vamos parar a instalação T-T "
+                echo -e "[Dimension Bot]: Okay... Vamos parar a instalação T-T "
                 exit
         fi
     else
@@ -133,13 +134,13 @@ if [[ ! "$(sudo docker image inspect openjdk:11)" ]]
 fi
 
     
-echo -e "${YELLOW}[Dimension Bot]:${ENDC} Verificando se Container ${RED}Java${ENDC} existe"
+echo -e "[Dimension Bot]: Verificando se Container Java existe"
 if [[ ! "$(sudo docker ps -aqf "name=java-jar")" ]]
     then
-        echo -e "${YELLOW}[Dimension Bot]:${ENDC} O dimensionjava não existe"
-        echo -e "${YELLOW}[Dimension Bot]:${ENDC} Inicializando a criação..."
+        echo -e "[Dimension Bot]: O dimensionjava não existe"
+        echo -e "[Dimension Bot]: Inicializando a criação..."
         sleep 1
-        cd Dimension/ApiMysql/target
+        cd AC3_Dimension/Dimension/ApiMysql/target
         chmod 777 DimensionJar.jar
         sudo docker build -t dimensionjava .
         sudo docker run -d --name='java-jar' -t dimensionjava
@@ -150,15 +151,18 @@ if [[ ! "$(sudo docker ps -aqf "name=java-jar")" ]]
         CONTID=$(sudo docker ps -aqf "name=java-jar")
         sudo docker stop ${CONTID}
         sudo docker start ${CONTID}
-        echo -e "${YELLOW}[Dimension Bot]:${ENDC} Container já existe, iniciando o Container..."
-        cd Dimension/ApiMysql/target
+        echo -e "[Dimension Bot]: Container já existe, iniciando o Container..."
+        cd AC3_Dimension/
+        cd Dimension/
+        cd ApiMysql/
+        cd target
         chmod 777 DimensionJar.jar
         sudo docker build -t dimensionjava .
         sudo docker cp DimensionJar.jar java-jar:/
         sudo docker exec -it java-jar java -jar DimensionJar.jar
 fi
 
-echo -e "${YELLOW}[Dimension Bot]:${ENDC} Obrigada por escolher a aplicação ${BLUEBOLD}Dimension${ENDC} ${RED}♥${ENDC}"
+echo -e "[Dimension Bot]: Obrigada por escolher a aplicação Dimension ♥"
 
 # this version made by: Priscila Choi
 #        ...                                     .    

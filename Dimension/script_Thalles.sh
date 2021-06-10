@@ -189,7 +189,7 @@ echo -e "${YELLOW}[Dimension Bot]:${ENDC} Obrigada por escolher a aplicação ${
 
 #Extra commands:
 # stop docker = sudo docker stop contianerID
-# delete docker = sudo docker container rm containerID (container must be stopped first)
+# delete docker =    (container must be stopped first)
 # remove all stopped containers = sudo docker container rm $(docker container ls -aq)
 # Remove ALL dockers containers(clean container) = sudo docker container stop $(docker container ls -aq) && sudo docker system prune -af --volumes
 # delete directory with file = rm -r nameDir (y y)
